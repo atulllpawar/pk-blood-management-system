@@ -193,15 +193,11 @@ app.patch('/api/requests/:id', (req, res) => {
 app.post('/api/auth/login', (req, res) => {
   const { username, password } = req.body;
 
-  if (
-    (username === 'admin' && password === 'admin123') ||
-    (username === 'pkadmin' && password === 'pk123') ||
-    (username === 'admin' && password === 'admin')
-  ) {
+  if (username === 'atulll.pawar' && password === '9922209136') {
     return res.json({
       success: true,
       token: 'pk-admin-jwt-token-998822',
-      user: { name: 'PK Admin', role: 'Super Admin', email: 'admin@pkbloodbank.org' }
+      user: { name: 'Atull Pawar (PK Admin)', role: 'Super Admin', email: 'atulllpawar2302@gmail.com' }
     });
   }
 
