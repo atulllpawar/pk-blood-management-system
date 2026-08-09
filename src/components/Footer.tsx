@@ -74,7 +74,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, isAdminLoggedIn })
 
           {/* Admin & Support */}
           <div className="md:col-span-4 space-y-3">
-            <h4 className="text-xs font-extrabold uppercase tracking-wider text-amber-400">Admin & Emergency</h4>
+            <h4 className="text-xs font-extrabold uppercase tracking-wider text-amber-400">Emergency & Support</h4>
             <div className="space-y-2">
               <a
                 href="tel:108"
@@ -87,7 +87,7 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, isAdminLoggedIn })
                 <span className="font-extrabold text-amber-300">108</span>
               </a>
 
-              {isAdminLoggedIn ? (
+              {isAdminLoggedIn && (
                 <button
                   onClick={() => setActiveTab('admin-dashboard')}
                   className="w-full py-2.5 px-4 rounded-xl bg-amber-400 text-slate-950 font-black text-xs flex items-center justify-between shadow"
@@ -95,23 +95,24 @@ export const Footer: React.FC<FooterProps> = ({ setActiveTab, isAdminLoggedIn })
                   <span>Go to Admin Dashboard</span>
                   <Lock className="w-3.5 h-3.5 text-slate-950" />
                 </button>
-              ) : (
-                <button
-                  onClick={() => setActiveTab('login')}
-                  className="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white font-bold text-xs flex items-center justify-between border border-slate-800"
-                >
-                  <span>Admin Login Portal</span>
-                  <Lock className="w-3.5 h-3.5 text-amber-400" />
-                </button>
               )}
             </div>
           </div>
 
         </div>
 
-        {/* Footer Bottom copyright matching user request */}
+        {/* Footer Bottom copyright */}
         <div className="pt-8 border-t border-slate-900 text-center text-xs text-slate-400">
-          <p>© 2026 PK Blood Management System | Developed by PK Management</p>
+          <p className="select-none">
+            © 2026 PK Blood Management System | Developed by{' '}
+            <span 
+              onClick={() => setActiveTab('login')}
+              className="cursor-pointer hover:text-slate-200 transition-colors"
+              title="Secret Admin Access"
+            >
+              PK Management
+            </span>
+          </p>
         </div>
 
       </div>

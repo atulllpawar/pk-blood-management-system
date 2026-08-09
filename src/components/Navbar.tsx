@@ -18,10 +18,29 @@ export const Navbar: React.FC<NavbarProps> = ({
   pendingCount
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [logoClickCount, setLogoClickCount] = useState(0);
 
   const handleNav = (tab: ActiveTab) => {
     setActiveTab(tab);
     setMobileMenuOpen(false);
+  };
+
+  const handleLogoClick = () => {
+    const newCount = logoClickCount + 1;
+    setLogoClickCount(newCount);
+    
+    if (newCount >= 3) {
+      handleNav('login');
+      setLogoClickCount(0);
+      return;
+    }
+
+    // Reset click counter after 1.5 seconds of inactivity
+    setTimeout(() => {
+      setLogoClickCount(0);
+    }, 1500);
+
+    handleNav('home');
   };
 
   return (
@@ -29,11 +48,12 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           
-          {/* Logo & Branding */}
+          {/* Logo & Branding - Secret 3 Clicks Opens Admin Login */}
           <div 
-            onClick={() => handleNav('home')} 
+            onClick={handleLogoClick} 
             className="flex items-center space-x-3 cursor-pointer group select-none"
             id="navbar-logo"
+            title="PK Blood Management"
           >
             <div className="relative w-12 h-12 flex items-center justify-center bg-white rounded-full shadow-lg group-hover:scale-105 transition-transform duration-200">
               {/* Hands & Blood Drop Icon SVG */}
@@ -146,7 +166,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Helpline: 108</span>
             </a>
 
-            {isAdminLoggedIn ? (
+            {isAdminLoggedIn && (
               <div className="flex items-center space-x-2">
                 <button
                   id="nav-admin-dash-btn"
@@ -170,15 +190,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <LogOut className="w-4 h-4" />
                 </button>
               </div>
-            ) : (
-              <button
-                id="nav-login-btn"
-                onClick={() => handleNav('login')}
-                className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-950 text-white text-sm font-bold shadow-md hover:shadow-xl transition-all border border-slate-700/50 flex items-center space-x-1.5"
-              >
-                <Lock className="w-4 h-4 text-amber-400" />
-                <span>Admin Login</span>
-              </button>
             )}
           </div>
 
@@ -267,7 +278,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span>Emergency Hotline: 108</span>
             </a>
 
-            {isAdminLoggedIn ? (
+            {isAdminLoggedIn && (
               <div className="flex space-x-2">
                 <button
                   onClick={() => handleNav('admin-dashboard')}
@@ -282,14 +293,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                   Logout
                 </button>
               </div>
-            ) : (
-              <button
-                onClick={() => handleNav('login')}
-                className="w-full py-2.5 rounded-xl bg-slate-900 text-amber-300 font-bold text-sm text-center flex items-center justify-center gap-2"
-              >
-                <Lock className="w-4 h-4" />
-                <span>Admin Login Portal</span>
-              </button>
             )}
           </div>
         </div>

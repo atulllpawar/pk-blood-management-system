@@ -11,8 +11,8 @@ export const AdminLoginView: React.FC<AdminLoginViewProps> = ({
   onLogin,
   setActiveTab
 }) => {
-  const [username, setUsername] = useState('admin');
-  const [password, setPassword] = useState('admin123');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -24,19 +24,13 @@ export const AdminLoginView: React.FC<AdminLoginViewProps> = ({
     try {
       const success = await onLogin(username, password);
       if (!success) {
-        setError('Invalid username or password. (Default credentials: admin / admin123)');
+        setError('Invalid username or password.');
       }
     } catch (err) {
       setError('An error occurred during authentication.');
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleDemoFill = () => {
-    setUsername('admin');
-    setPassword('admin123');
-    setError(null);
   };
 
   return (
@@ -125,19 +119,6 @@ export const AdminLoginView: React.FC<AdminLoginViewProps> = ({
           </button>
 
         </form>
-
-        {/* Demo Fast Fill Badge */}
-        <div className="pt-2 border-t border-slate-100 space-y-2">
-          <p className="text-[11px] text-slate-400">
-            Demo Credentials: <code className="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-slate-800 font-bold">admin</code> / <code className="bg-slate-100 px-1.5 py-0.5 rounded font-mono text-slate-800 font-bold">admin123</code>
-          </p>
-          <button
-            onClick={handleDemoFill}
-            className="w-full py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold text-xs border border-amber-200 transition-colors"
-          >
-            Auto-fill Admin Credentials
-          </button>
-        </div>
 
       </div>
 

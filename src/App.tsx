@@ -70,6 +70,22 @@ export default function App() {
 
   useEffect(() => {
     fetchAllData();
+
+    // Secret URL check: ?admin=true or #admin
+    if (window.location.search.includes('admin=true') || window.location.hash === '#admin') {
+      setActiveTab('login');
+    }
+
+    // Secret Keyboard Shortcut: Ctrl + Shift + A to open Admin Login
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        setActiveTab('login');
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [fetchAllData]);
 
   // Handlers
