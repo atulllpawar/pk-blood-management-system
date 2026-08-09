@@ -1,7 +1,7 @@
 import express from 'express';
 import { GoogleGenAI } from '@google/genai';
-import { INITIAL_DONORS, INITIAL_REQUESTS } from './src/data/mockData.js';
-import { Donor, BloodRequest, BloodGroup } from './src/types.js';
+import { INITIAL_DONORS, INITIAL_REQUESTS } from './src/data/mockData';
+import { Donor, BloodRequest, BloodGroup } from './src/types';
 
 export const app = express();
 
